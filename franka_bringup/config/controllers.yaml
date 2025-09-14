@@ -78,6 +78,9 @@
       joint_velocity_example_controller:
         type: franka_example_controllers/JointVelocityExampleController
 
+      cartesian_impedance_example_controller:
+        type: franka_example_controllers/CartesianImpedanceExampleController
+
       model_example_controller:
         type: franka_example_controllers/ModelExampleController
 
