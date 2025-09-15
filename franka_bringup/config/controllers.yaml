@@ -227,3 +227,18 @@
         - 10.0
         - 10.0
         - 5.0
+
+/**:
+  cartesian_impedance_example_controller:
+    ros__parameters:
+      arm_id: "fr3"
+      joint_names:
+        - fr3_joint1
+        - fr3_joint2
+        - fr3_joint3
+        - fr3_joint4
+        - fr3_joint5
+        - fr3_joint6
+        - fr3_joint7
+      k_cartesian: [400.0, 400.0, 400.0, 30.0, 30.0, 30.0]  # optional, Cartesian Stiffness
+      d_cartesian: [30.0, 30.0, 30.0, 2.0, 2.0, 2.0]       # optional, Cartesian Damping

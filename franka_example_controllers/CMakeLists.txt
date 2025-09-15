@@ -84,6 +84,8 @@ install(
         DESTINATION include
 )
 
+install(PROGRAMS scripts/interactive_marker.py DESTINATION lib/${PROJECT_NAME})
+
 if(BUILD_TESTING)
     find_package(ament_cmake_clang_format REQUIRED)
     find_package(ament_cmake_copyright REQUIRED)
