@@ -18,16 +18,24 @@ find_package(ament_cmake REQUIRED)
 find_package(ament_index_cpp REQUIRED)
 find_package(controller_interface REQUIRED)
 find_package(franka_msgs REQUIRED)
+find_package(moveit_visual_tools REQUIRED)
 find_package(franka_semantic_components REQUIRED)
 find_package(hardware_interface REQUIRED)
 find_package(moveit_core REQUIRED)
 find_package(moveit_msgs REQUIRED)
+find_package(moveit_ros_planning_interface REQUIRED)
 find_package(pinocchio REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_lifecycle REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(Eigen3 REQUIRED)
+find_package(geometric_shapes REQUIRED)
+find_package(shape_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
+find_package(tf2_eigen REQUIRED)
 
 add_library(
         ${PROJECT_NAME}
@@ -46,7 +54,8 @@ add_library(
         src/joint_velocity_example_controller.cpp
         src/model_example_controller.cpp
         src/motion_generator.cpp
-        src/move_to_start_example_controller.cpp)
+        src/move_to_start_example_controller.cpp
+        src/moveit_stacker_insertion.cpp)
 target_include_directories(
         ${PROJECT_NAME}
         PUBLIC
@@ -61,11 +70,19 @@ ament_target_dependencies(
         hardware_interface
         moveit_core
         moveit_msgs
+        moveit_ros_planning_interface
+        moveit_visual_tools
         pinocchio
         pluginlib
         rclcpp
         rclcpp_lifecycle
         std_srvs
+        geometric_shapes
+        shape_msgs
+        geometry_msgs
+        tf2
+        tf2_geometry_msgs
+        tf2_eigen
 )
 
 pluginlib_export_plugin_description_file(
@@ -85,6 +102,28 @@ install(
 )
 
 install(PROGRAMS scripts/interactive_marker.py DESTINATION lib/${PROJECT_NAME})
+
+# Add executable for moveit_stacker_insertion
+add_executable(moveit_stacker_insertion src/moveit_stacker_insertion.cpp)
+target_include_directories(moveit_stacker_insertion PRIVATE include)
+ament_target_dependencies(moveit_stacker_insertion
+    rclcpp
+    moveit_core
+    moveit_msgs
+    moveit_ros_planning_interface
+    moveit_visual_tools
+    geometric_shapes
+    shape_msgs
+    geometry_msgs
+    tf2
+    tf2_geometry_msgs
+    tf2_eigen
+    sensor_msgs
+)
+
+install(TARGETS moveit_stacker_insertion
+    RUNTIME DESTINATION lib/${PROJECT_NAME}
+)
 
 if(BUILD_TESTING)
     find_package(ament_cmake_clang_format REQUIRED)
@@ -152,5 +191,13 @@ ament_export_dependencies(
         rclcpp_lifecycle
         hardware_interface
         moveit_core
+        moveit_ros_planning_interface
+        moveit_visual_tools
+        geometric_shapes
+        shape_msgs
+        geometry_msgs
+        tf2
+        tf2_geometry_msgs
+        tf2_eigen
 )
 ament_package()

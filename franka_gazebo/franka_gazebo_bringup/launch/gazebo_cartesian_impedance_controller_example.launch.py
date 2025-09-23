@@ -138,8 +138,9 @@ def generate_launch_description():
     )
 
     cartesian_impedance_example_controller = ExecuteProcess(
-        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
-                'cartesian_impedance_example_controller'],
+cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
+             'cartesian_impedance_example_controller',
+             '--param', 'robot_description:=' + LaunchConfiguration('arm_id')],
         output='screen'
     )
 
