@@ -41,13 +41,23 @@ ros2 launch franka_fr3_moveit_config moveit_stacker_insertion_sim.launch.py
 Both launch files start the following components:
 
 1. **MoveIt Move Group** - Core planning and execution
-2. **RViz2** - Visualization with MoveIt configuration
+2. **RViz2** - Visualization with MoveIt configuration and RvizVisualToolsGui
 3. **Robot State Publisher** - Publishes robot transforms
 4. **ROS2 Control Node** - Hardware interface
 5. **Joint State Publisher** - Publishes joint states
 6. **Controller Manager** - Manages robot controllers
 7. **Franka Gripper** - Gripper control
 8. **MoveIt Stacker Insertion Script** - Your custom demo script
+
+## RvizVisualToolsGui
+
+The RViz configuration now includes the **RvizVisualToolsGui** panel, which provides interactive buttons for the MoveIt visual tools prompts. This allows you to:
+
+- Click "Next" to continue with planning and execution steps
+- Interact with the MoveIt visual tools prompts from your script
+- Control the flow of the stacker insertion demo through the GUI
+
+The GUI will appear as a panel in RViz when you launch the demo, and you can use it to step through the planning and execution phases of your script.
 
 ## Prerequisites
 
@@ -69,7 +79,7 @@ Both launch files start the following components:
 
 ## Troubleshooting
 
-1. **Script doesn't start:** The stacker insertion script has a 10-second delay to allow MoveIt to fully initialize. Wait for this delay.
+1. **Script doesn't start:** The stacker insertion script has a 5-second delay to allow MoveIt to fully initialize. Wait for this delay.
 
 2. **"robot_description_semantic not found" error:** This has been fixed by passing the necessary parameters to the script in the launch file.
 
@@ -84,6 +94,8 @@ Both launch files start the following components:
 6. **Mesh loading errors:** Verify that the mesh files are accessible in the `franka_description` package.
 
 7. **Trajectory visualization not working:** The script now includes proper initialization of MoveIt visual tools and publishes the robot state to help with trajectory visualization in RViz.
+
+8. **RvizVisualToolsGui not appearing:** Make sure the `moveit_rviz_plugin` package is installed. If the GUI panel doesn't appear, try restarting RViz or check that the topic `/rviz_visual_tools_gui` is being published.
 
 ## Customization
 

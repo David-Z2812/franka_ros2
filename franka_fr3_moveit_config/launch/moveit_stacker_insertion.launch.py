@@ -290,7 +290,7 @@ def generate_launch_description():
 
     # Delay the stacker insertion script to allow MoveIt to fully initialize
     delayed_stacker_script = TimerAction(
-        period=10.0,  # Wait 10 seconds for MoveIt to initialize
+        period=5.0,  # Wait 10 seconds for MoveIt to initialize
         actions=[moveit_stacker_insertion_node],
         condition=UnlessCondition(use_fake_hardware)
     )
